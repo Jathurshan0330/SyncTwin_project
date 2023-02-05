@@ -1,0 +1,23 @@
+{
+    "os": "Linux-5.4.0-135-generic-x86_64-with-debian-buster-sid",
+    "python": "3.7.11",
+    "heartbeatAt": "2023-02-05T03:55:28.604623",
+    "startedAt": "2023-02-05T03:55:23.757782",
+    "docker": null,
+    "gpu": "NVIDIA TITAN RTX",
+    "gpu_count": 4,
+    "cpu_count": 20,
+    "cuda": "10.0.130",
+    "args": null,
+    "state": "running",
+    "program": "<python with no main file>",
+    "git": {
+        "remote": "https://github.com/Jathurshan0330/SyncTwin_project.git",
+        "commit": "673bc1ffa512c411e9c75ecd2474acf8e2cc03eb"
+    },
+    "email": "jathurshanpradeepkumar@gmail.com",
+    "root": "/home/jupyter-jathurshan/SyncTwin_project",
+    "host": "bizon",
+    "username": "jupyter-jathurshan",
+    "executable": "/opt/tljh/user/bin/python"
+}
