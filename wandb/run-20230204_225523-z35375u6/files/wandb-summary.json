@@ -1,1 +1,1 @@
-{"batch_loss": 0.010048279538750648, "_timestamp": 1675570119.8804648, "_runtime": 792.6261887550354, "_step": 41014, "train_epoch_loss": 0.011319459097361878, "training time/Iter": 0.018707162455508585, "val_epoch_loss": 0.015033942002398697, "epoch_saved_Best_Model": 739}
+{"batch_loss": 0.010048279538750648, "_timestamp": 1675570119.8804648, "_runtime": 792.6261887550354, "_step": 41014, "train_epoch_loss": 0.011319459097361878, "training time/Iter": 0.018707162455508585, "val_epoch_loss": 0.015033942002398697, "epoch_saved_Best_Model": 739, "_wandb": {"runtime": 791}}

@@ -138,3 +138,6 @@ local_info {
 2023-02-04 22:55:31,245 INFO    MainThread:2109 [wandb_init.py:_resume_backend():383] resuming backend
 2023-02-04 23:08:39,881 INFO    MainThread:2109 [wandb_init.py:_pause_backend():374] pausing backend
 2023-02-04 23:08:39,881 INFO    MainThread:2109 [jupyter.py:save_ipynb():377] not saving jupyter notebook
+2023-02-05 12:17:23,960 INFO    MainThread:2109 [wandb_init.py:_resume_backend():383] resuming backend
+2023-02-05 12:17:23,962 INFO    MainThread:2109 [wandb_init.py:_pause_backend():374] pausing backend
+2023-02-05 12:17:23,962 INFO    MainThread:2109 [jupyter.py:save_ipynb():377] not saving jupyter notebook
