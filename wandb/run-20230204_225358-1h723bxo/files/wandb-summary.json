@@ -1,1 +1,0 @@
-{"batch_loss": 0.022331759333610535, "_timestamp": 1675569294.190146, "_runtime": 50.29712200164795, "_step": 2061, "train_epoch_loss": 0.03004370698411214, "training time/Iter": 0.01738255274923224, "val_epoch_loss": 0.025318199646120008, "epoch_saved_Best_Model": 43, "_wandb": {"runtime": 78}}
