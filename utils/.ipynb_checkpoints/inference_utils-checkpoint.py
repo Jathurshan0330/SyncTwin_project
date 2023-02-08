@@ -81,9 +81,10 @@ def learn_B(c_target,c_non_target,num_iterations=1000,is_plot = False):
     target_ind_tensor = torch.arange(c_target.shape[0])
     target_ind_tensor = torch.split(target_ind_tensor,10)
     for i in range(num_iterations):
-        opt.zero_grad()
+        
         for target_ind  in target_ind_tensor: 
             c_target_sample = c_target[target_ind]
+            opt.zero_grad()
             with torch.no_grad():
                 weight_norm = B/B.sum(dim=1, keepdim=True)
                 B.copy_(B)
@@ -119,6 +120,31 @@ def learn_B(c_target,c_non_target,num_iterations=1000,is_plot = False):
         plt.colorbar(im, ax=axs[1],shrink = 0.3)
     
     return B
+
+def learn_B_val(c_target,num_iterations=1000,is_plot = False):
+    B = torch.zeros(len(c_target),len(c_target)).to(DEVICE).requires_grad_(True)
+    B_mask = (1-torch.diag(torch.ones(len(c_target)))).to(DEVICE).requires_grad_(True)
+    opt =  torch.optim.Adam([B], lr=0.0001, betas=(0.9, 0.999))
+    target_ind_tensor = torch.arange(c_target.shape[0])
+    target_ind_tensor = torch.split(target_ind_tensor,100)
+    for i in range(num_iterations):
+        
+        for target_ind  in target_ind_tensor: 
+            c_target_sample = c_target[target_ind]
+            opt.zero_grad()
+            with torch.no_grad():
+                weight_norm = (B*B_mask)/(B*B_mask).sum(dim=1, keepdim=True)
+                B.copy_(B)
+            
+            c_estimate = torch.matmul(B[target_ind]*B_mask[target_ind],c_target)
+            loss = matching_loss(c_estimate,c_target_sample)#/len(target_ind) 
+            loss.backward()
+            opt.step()
+    
+    return B
+
+
+
 
 
 def estimate_y(B,y_non_target):

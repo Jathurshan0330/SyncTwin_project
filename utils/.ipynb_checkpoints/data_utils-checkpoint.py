@@ -18,7 +18,7 @@ def load_config(data_path, fold="train"):
 
 
 def load_tensor(data_path, fold="train"):
-    print(data_path.format(fold, "x_full", "pth"))
+    # print(data_path.format(fold, "x_full", "pth"))
     x_full = torch.load(data_path.format(fold, "x_full", "pth"))
     t_full = torch.load(data_path.format(fold, "t_full", "pth"))
     mask_full = torch.load(data_path.format(fold, "mask_full", "pth"))
@@ -91,7 +91,7 @@ def read_data_inference(data_path, fold,device,group = 'Treated'):
     y_control = torch.moveaxis(y_control,1,0).to(device)
     treatment_effect = torch.moveaxis(treatment_effect,1,0).to(device)
     
-    print(f"Loading {group} Group")
+    # print(f"Loading {group} Group")
     if group == 'Treated':
         x_full = x_full[y_mask_full==0]
         t_full = t_full[y_mask_full==0]

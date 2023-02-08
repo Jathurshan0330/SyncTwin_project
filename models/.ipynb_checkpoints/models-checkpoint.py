@@ -153,13 +153,53 @@ class Trans_Decoder(nn.Module):
         return x
 
 class linear_cls(nn.Module):
-    def __init__(self,y_times = 5):
+    def __init__(self,in_dim,y_times = 5):
         super(linear_cls, self).__init__()
         
-        self.Q = nn.Linear(1600, y_times)
+        self.Q = nn.Linear(in_dim, y_times)
     def forward(self, x):
         # print(x.shape)
         x = torch.flatten(x, start_dim=1, end_dim=- 1) 
         x = self.Q(x)
         return x
+    
+    
+class LSTM_Encoder(nn.Module): 
+    def __init__(self, in_dim,hidden_dim):
+        super(LSTM_Encoder, self).__init__()
+        self.hidden_dim = hidden_dim
+        self.lstm = nn.LSTM(in_dim, hidden_dim, bidirectional=True,batch_first=True)
+        self.atten = nn.Parameter(torch.ones(1,1,hidden_dim*2))
+    def forward(self, x):
+        x,_ = self.lstm (x)
+        atten = repeat(self.atten, '() s e -> b e s', b=x.shape[0])
+        # print(x.shape,atten.shape)
+        atten_weight = torch.softmax(torch.matmul(x, atten) / math.sqrt(self.hidden_dim), dim=1)
+        # print(atten_weight.shape,x.shape)
+        x = torch.sum(x * atten_weight, dim=1)
+        return x
+    
+
+class LSTM_Decoder(nn.Module): 
+    def __init__(self,hidden_dim,out_dim,time_points):
+        super(LSTM_Decoder, self).__init__()
+        
+        self.time_points = time_points
+        self.lstm = nn.LSTM(hidden_dim, hidden_dim,batch_first=True)
+        self.final = Linear(hidden_dim, out_dim)
+    def forward(self, c):
+        out,h = self.lstm(c)
+        
+        out_main = self.final(out).unsqueeze(1)
+        # print(out_main.shape)
+        for i in range(self.time_points-1):
+            out,h = self.lstm(c,h)
+            out_main = torch.cat((out_main,self.final(out).unsqueeze(1)),dim=1)
+            
+        
+        
+        return out_main
+
+
+        
         
