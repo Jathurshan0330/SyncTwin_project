@@ -201,5 +201,107 @@ class LSTM_Decoder(nn.Module):
         return out_main
 
 
+
+class CNN_Encoder(nn.Module):
+    
+    def __init__(self, input_nc=1, ngf = 16):
+        super(CNN_Encoder, self).__init__()
+        self.enc1 = self.enc_block(in_ch = input_nc, out_ch = ngf, kernel_size=4, stride=2, padding = 1,bias = True, innermost = False  )
+        self.enc2 = self.enc_block(in_ch = ngf, out_ch = ngf*2, kernel_size=4, stride=2, padding = 1,bias = True, innermost = False  )
+        self.enc3 = self.enc_block(in_ch = ngf*2, out_ch = ngf*4, kernel_size=4, stride=2, padding = 1,bias = True, innermost = False  )
+        self.enc4 = self.enc_block(in_ch = ngf*4, out_ch = ngf*8, kernel_size=4, stride=2, padding = 1,bias = True, innermost = False  )
         
         
+    def enc_block(self, in_ch, out_ch, kernel_size=4, stride=2, padding = 1,bias = True, innermost = False):
+            return nn.Sequential(
+                nn.Conv1d(in_ch, out_ch, kernel_size=kernel_size,stride=stride, padding=padding, bias=bias),
+                nn.LeakyReLU()
+                )
+      
+            
+    def forward(self, x):
+        x = torch.moveaxis(x,1,-1)
+        # print(x.shape)
+        x = self.enc1(x)
+        x = self.enc2(x)
+        x = self.enc3(x)
+        x = self.enc4(x)
+        
+        return x
+    
+
+class CNN_Decoder(nn.Module):
+    
+    def __init__(self, lat_chan=128,out_ch = 1, ngf = 16 ):
+        super(CNN_Decoder, self).__init__()
+        self.dec1 = self.conv_up_block(in_ch = lat_chan , out_ch = ngf*8, 
+                                       kernel_size=4, stride=2, padding = 1,bias = True)
+        self.dec2 = self.conv_up_block(in_ch = ngf*8 , out_ch = ngf*4, 
+                                       kernel_size=4, stride=2, padding = 1,bias = True)
+        self.dec3 = self.conv_up_block(in_ch = ngf*4 , out_ch = ngf*2, 
+                                       kernel_size=4, stride=2, padding = 1,bias = True)
+        self.dec4 = self.conv_up_block(in_ch = ngf*2 , out_ch = 25, 
+                                       kernel_size=4, stride=2, padding = 1,bias = True)
+        self.final = nn.Linear(16,out_ch)
+        
+        
+    def conv_up_block(self,  in_ch, out_ch, kernel_size=4, stride=2, padding = 1,bias = True,outermost = False):
+            return nn.Sequential(
+                nn.ConvTranspose1d( in_ch, out_ch, kernel_size=kernel_size, stride=stride, padding = padding,bias = bias),
+                nn.LeakyReLU()
+                )
+        
+    def forward(self,x): 
+        x = self.dec1(x)
+        
+        x = self.dec2(x)
+        
+        
+        x = self.dec3(x)
+        
+        x = self.dec4(x)
+        x = self.final(x)
+        # x = torch.moveaxis(x,-1,1)
+        return x
+
+class Linear_Encoder(nn.Module):
+    
+    def __init__(self, input_nc=1, ngf = 16,seq_length = 25):
+        super(Linear_Encoder, self).__init__()
+        self.enc1 = nn.Sequential(nn.Flatten(),
+                                  nn.Linear(input_nc*seq_length,ngf),
+                                  nn.ReLU(),
+                                  nn.Linear(ngf,ngf*2),
+                                  nn.ReLU(),
+                                  nn.Linear(ngf*2,seq_length),
+                                  nn.ReLU())
+            
+    
+      
+            
+    def forward(self, x):
+        
+        # print(x.shape)
+        x = self.enc1(x)
+        return x.unsqueeze(-1)
+    
+    
+class Linear_Decoder(nn.Module):
+    
+    def __init__(self, lat_chan=128,out_ch = 3, ngf = 16 ):
+        super(Linear_Decoder, self).__init__()
+        self.dec1 = nn.Sequential(
+                                  nn.Linear(1,ngf),
+                                  nn.ReLU(),
+                                  nn.Linear(ngf,ngf*2),
+                                  nn.ReLU(),
+                                  nn.Linear(ngf*2,3),
+                                  nn.ReLU())
+        
+        
+    
+    def forward(self,x): 
+        x = self.dec1(x)
+        
+        
+        return x

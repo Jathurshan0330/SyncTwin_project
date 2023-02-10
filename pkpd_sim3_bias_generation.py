@@ -1,3 +1,13 @@
+"""
+The following data generation code for the stimulation study was borrowed from https://github.com/ZhaozhiQIAN/SyncTwin-NeurIPS-2021, to maintain similarity in the dataset and reproduce the results.
+
+Credits:
+Z. Qian, Y. Zhang, I. Bica, A. Wood, and M. van der Schaar, “Synctwin: Treatment effect estimation with longitudinal outcomes,” Advances in Neural Information Processing Systems,
+vol. 34, pp. 3178–3190, 2021.
+
+"""
+
+
 import argparse
 import pickle
 import os
@@ -78,7 +88,7 @@ for fold in ["test", "val", "train"]:
     print("control_Kin_b:", control_Kin_b.shape)
 
     K_list = [0.18]
-    P0_list = [0.5]
+    P0_list = [0.5] #[0.5]
     R0_list = [0.5]
 
     control_res_arr = pkpd.generate_data(
