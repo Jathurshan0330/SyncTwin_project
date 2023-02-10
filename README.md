@@ -30,3 +30,7 @@ python -u -m pkpd_sim3_irregular_generation --sim_id=sync6d --seed=100 --missing
 
 python -u -m pkpd_sim3_irregular_generation --sim_id=sync6d --seed=100 --missing_pct=0.7
 ```
+
+#Demonstration
+A demonstration notebook is provide a hands-on experience to showcase the implementation of the method and produce results for various experiment settings.
+
