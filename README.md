@@ -43,6 +43,17 @@ python -u -m pkpd_sim3_irregular_generation --sim_id=sync6d --seed=100 --missing
 python -u -m pkpd_sim3_irregular_generation --sim_id=sync6d --seed=100 --missing_pct=0.7
 ```
 
-#Demonstration
+# Demonstration
 A demonstration notebook (Demo.ipynb) is included to provide a hands-on experience to showcase the implementation of the method and produce results for various experiment settings.
 
+# Reference
+```
+@article{qian2021synctwin,
+  title={Synctwin: Treatment effect estimation with longitudinal outcomes},
+  author={Qian, Zhaozhi and Zhang, Yao and Bica, Ioana and Wood, Angela and van der Schaar, Mihaela},
+  journal={Advances in Neural Information Processing Systems},
+  volume={34},
+  pages={3178--3190},
+  year={2021}
+}
+```
