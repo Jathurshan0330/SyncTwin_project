@@ -17,8 +17,8 @@ pip install -r requirements.txt
 
 
 
-# Data generation for the stimulation study
-To maintain similarity in the dataset and reproduce the results of the stimulation study conducted in the paper, data generation scripts from the official implementation of the paper (https://github.com/ZhaozhiQIAN/SyncTwin-NeurIPS-2021) was utilized. 
+# Data generation for the simulation study
+To maintain similarity in the dataset and reproduce the results of the simulation study conducted in the paper, data generation scripts from the official implementation of the paper (https://github.com/ZhaozhiQIAN/SyncTwin-NeurIPS-2021) was utilized. 
 
 Run the following script for data generation:
 
