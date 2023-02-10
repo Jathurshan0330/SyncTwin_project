@@ -1,7 +1,19 @@
 # SyncTwin_project
-Assignment: This repository contains the code for paper implementation of the "SyncTwin: Treatment Effect Estimation with Longitudinal Outcomes" paper published at NeurIPS 2021. 
+Assignment: This repository contains the code for paper implementation of the "SyncTwin: Treatment Effect Estimation with Longitudinal Outcomes" paper published at NeurIPS 2021. The official implementation of the paper can be found at https://github.com/ZhaozhiQIAN/SyncTwin-NeurIPS-2021
 
 
+# Getting Started
+
+### Installation Guide
+Run our algorithm using Pytorch and CUDA https://pytorch.org/
+
+```
+pip3 install torch==1.10.0+cu113 torchvision==0.11.1+cu113 torchaudio===0.10.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+```
+
+```
+pip install -r requirements.txt
+```
 
 
 
