@@ -32,5 +32,5 @@ python -u -m pkpd_sim3_irregular_generation --sim_id=sync6d --seed=100 --missing
 ```
 
 #Demonstration
-A demonstration notebook (Demo.ipynb) is provide a hands-on experience to showcase the implementation of the method and produce results for various experiment settings.
+A demonstration notebook (Demo.ipynb) is included to provide a hands-on experience to showcase the implementation of the method and produce results for various experiment settings.
 
